@@ -109,7 +109,7 @@ def do_dry_run(input_file, subdomain, username, password):
         new_labels = row[2].split()
 
         # GET article URL - does it exist in instance?
-        req = Request('GET', article_url, headers={'content-type': 'application/json'}, auth=(username, password))
+        req = Request('GET', article_url, headers={'Accept': 'application/json'}, auth=(username, password))
         prepped = req.prepare()
         resp = s.send(prepped)
         if resp.status_code != 200:
@@ -127,7 +127,7 @@ def do_dry_run(input_file, subdomain, username, password):
         if not (new_section in sections_checked):
           # Read section number - does it exist in instance?
           section_url = f'https://{subdomain}.zendesk.com/api/v2/help_center/sections/{new_section}'
-          req = Request('GET', section_url, headers={'content-type': 'application/json'}, auth=(username, password))
+          req = Request('GET', section_url, headers={'Accept': 'application/json'}, auth=(username, password))
           prepped = req.prepare()
           resp = s.send(prepped)
           if resp.status_code == 200:
@@ -176,7 +176,7 @@ def do_move(input_file, subdomain, username, password):
         existing_section_id = 0
 
         # Get current section ID.
-        req = Request('GET', article_url, headers={'content-type': 'application/json'}, auth=(username, password))
+        req = Request('GET', article_url, headers={'Accept': 'application/json'}, auth=(username, password))
         prepped = req.prepare()
         resp = s.send(prepped)
         if resp.status_code != 200:
@@ -190,7 +190,7 @@ def do_move(input_file, subdomain, username, password):
         # Update article's section ID.
         # Example article URL: https://z3n3395.zendesk.com/api/v2/help_center/articles/360005727134
         data = json.dumps({'section_id': new_section})
-        req = Request('PUT', article_url, data=data, headers={'content-type': 'application/json'}, auth=(username, password))
+        req = Request('PUT', article_url, data=data, headers={'Accept': 'application/json'}, auth=(username, password))
         prepped = req.prepare()
         resp = s.send(prepped)
         if resp.status_code != 200:
@@ -221,7 +221,7 @@ def do_move(input_file, subdomain, username, password):
 
         # Get article's existing labels.
         existing_labels_for_csv = ''
-        req = Request('GET', f'{label_url}?fields=labels', headers={'content-type': 'application/json'}, auth=(username, password))
+        req = Request('GET', f'{label_url}?fields=labels', headers={'Accept': 'application/json'}, auth=(username, password))
         prepped = req.prepare()
         resp = s.send(prepped)
         if resp.status_code != 200:
@@ -241,7 +241,7 @@ def do_move(input_file, subdomain, username, password):
 
         # Update article labels.
         data = json.dumps({"labels": new_labels})
-        req = Request('PUT', label_url, data=data, headers={'content-type': 'application/json'}, auth=(username, password))
+        req = Request('PUT', label_url, data=data, headers={'Accept': 'application/json'}, auth=(username, password))
         prepped = req.prepare()
         resp = s.send(prepped)
         if resp.status_code != 200:
