@@ -1,63 +1,78 @@
 <html>
-<head>
-  <meta charset="utf-8">
-  <!-- Zendesk Garden CSS styles -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/combine/npm/@zendeskgarden/css-buttons@7,npm/@zendeskgarden/css-utilities@4">
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
-</head>
-<body>
-  <h2 class="u-regular">Select Ticket Tags On Modal</h2><br/>
-  <button id="displayModal" class="u-fs-sm c-btn c-btn--small c-btn--pill c-btn--primary">Display Modal</button>
-  <br/>
-  <div id="modalData"></div>
-  <!-- zaf_sdk.js is what allows this iFramed JavaScript app to communicate out to the parent/agent UI. -->
-  <script type="text/javascript" src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
-  <script>
-    let client = ZAFClient.init()
-    client.invoke('resize', { width: '100%', height: '200px' })
+  <head>
+    <meta charset="utf-8" />
+    <!-- Zendesk Garden CSS styles -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/combine/npm/@zendeskgarden/css-buttons@7,npm/@zendeskgarden/css-utilities@4"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  </head>
+  <body>
+    <h2 class="u-regular">Select Ticket Tags On Modal</h2>
+    <br />
+    <button
+      id="displayModal"
+      class="u-fs-sm c-btn c-btn--small c-btn--pill c-btn--primary"
+    >
+      Display Modal
+    </button>
+    <br />
+    <div id="modalData"></div>
+    <!-- zaf_sdk.js is what allows this iFramed JavaScript app to communicate out to the parent/agent UI. -->
+    <script
+      type="text/javascript"
+      src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"
+    ></script>
+    <script>
+      let client = ZAFClient.init();
+      client.invoke('resize', { width: '100%', height: '200px' });
 
-    client.on('instance.registered', (context) => {
-      if (context.location === 'modal') {
-        console.log("modal context:", context)
-        let instanceGuid = context.instanceGuid
-        let modalClient = client.instance(instanceGuid)
+      client.on('instance.registered', (context) => {
+        if (context.location === 'ticket_sidebar') {
+          console.log('ticket_sidebar context:', context);
+          let instanceGuid = context.instanceGuid;
+          let modalClient = client.instance(instanceGuid);
 
-        // Send modal this client's instance guid via trigger.
-        // The modal will use the guid to get a client instance back to this parent.
-        modalClient.trigger('send_parent_client_guid_event', client._instanceGuid)
-      }
-    })
-
-    function displayModal() {
-      return client.invoke('instances.create', {
-        location: 'modal',
-        url: 'assets/modal.html',
-        size: {
-          width: '40vw',
-          height: '40vh'
+          // Send modal this client's instance guid via trigger.
+          // The modal will use the guid to get a client instance back to this parent.
+          modalClient.trigger(
+            'send_parent_client_guid_event',
+            client._instanceGuid
+          );
         }
-      })
-    }
+      });
 
-    function addTagsToTicket(tagArray) {
-      client.invoke('ticket.tags.add', tagArray)
-    }
+      function displayModal() {
+        return client.invoke('instances.create', {
+          location: 'modal',
+          url: 'assets/modal.html',
+          size: {
+            width: '40vw',
+            height: '40vh',
+          },
+        });
+      }
 
-    // Get data back from modal via trigger data.
-    // See this line in modal.html: parentClient.trigger('send_modal_data', JSON.stringify(tagsToAdd))
-    client.on('send_modal_data', (modalData) => {
-      console.debug('send_modal_data event called...')
-      console.debug(modalData)
-      // Assume data in array format.
-      let tagArray = JSON.parse(modalData)
-      console.debug("tagArray:", tagArray)
-      $("#modalData").html($("#modalData").html() + "<br/>" + modalData)
-      addTagsToTicket(tagArray)
-    })
+      function addTagsToTicket(tagArray) {
+        client.invoke('ticket.tags.add', tagArray);
+      }
 
-    $(document).ready(function(){
-      $("#displayModal").click(() => displayModal())
-    })
-  </script>
-</body>
+      // Get data back from modal via trigger data.
+      // See this line in modal.html: parentClient.trigger('send_modal_data', JSON.stringify(tagsToAdd))
+      client.on('send_modal_data', (modalData) => {
+        console.debug('send_modal_data event called...');
+        console.debug(modalData);
+        // Assume data in array format.
+        let tagArray = JSON.parse(modalData);
+        console.debug('tagArray:', tagArray);
+        $('#modalData').html($('#modalData').html() + '<br/>' + modalData);
+        addTagsToTicket(tagArray);
+      });
+
+      $(document).ready(function () {
+        $('#displayModal').click(() => displayModal());
+      });
+    </script>
+  </body>
 </html>
