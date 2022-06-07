@@ -6,6 +6,7 @@
     "url": "https://developer.zendesk.com/documentation/"
   },
   "defaultLocale": "en",
+  "flexible": true,
   "private": true,
   "location": {
     "support": {

@@ -1,8 +1,8 @@
 {
   "app": {
     "name": "Change Ticket Requester on Save",
-    "short_description": "Changes ticket.requester on ticket.save event.",
-    "long_description": "Changes ticket.requester on ticket.save event.",
-    "installation_instructions": "Click install."
+    "short_description": "Changes ticket requester with a ticket.save event.",
+    "long_description": "First, the user is created or updated. If that is successful it then changes the ticket requester with a ticket.save event.",
+    "installation_instructions": "Click install. If you want to change the user that is being created or updated, make those changes on lines 20-21 in iframe.html."
   }
 }
