@@ -1,11 +1,12 @@
 {
-  "name": "Test Change Requester on Save",
+  "name": "Change Requester on Save",
   "author": {
-    "name": "Bryan",
-    "email": "bflynn@zendesk.com",
-    "url": ""
+    "name": "Developer Advocacy at Zendesk",
+    "email": "developer-support@zendesk.com",
+    "url": "https://developer.zendesk.com/documentation/"
   },
   "defaultLocale": "en",
+  "flexible": true,
   "private": true,
   "location": {
     "support": {
