@@ -12,7 +12,7 @@
     const client = ZAFClient.init();
     client.invoke('resize', {
       width: '100%',
-      height: '350px'
+      height: '520px'
     });
   </script>
   <script src="/main.js"></script>
@@ -30,7 +30,6 @@
 
   <p>Using client.request with CORS:
     <button onClick="requestToRemoteAPICors()">Go</button></p>
-
   <p>Using client.request without CORS:
     <button onClick="requestToRemoteAPINoCors()">Go</button></p>
 
@@ -38,9 +37,6 @@
     <button onClick="fetchRequestWithCors()">Go</button></p>
   <p>Using fetch() without CORS:
     <button onClick="fetchRequestWithoutCors()">Go</button></p>
-
-  <p>POST using client.request without CORS:
-    <button onClick="buttonPress5()">Go</button></p>
 
 </body>
 

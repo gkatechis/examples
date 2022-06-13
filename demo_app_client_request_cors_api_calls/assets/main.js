@@ -68,7 +68,7 @@ async function requestToRemoteAPINoCors() {
   }
 }
 
-// remote API call using fetch()
+// remote API call using fetch() with CORS
 // Note: With default url pointing to https://wikipedia.com, this example will return a CORS error, since wikipedia doesn't support CORS. You can use https://api.github.com to see this request successfully return.
 
 async function fetchRequestWithCors() {
@@ -89,6 +89,8 @@ async function fetchRequestWithCors() {
   }
 }
 
+// remote API call using fetch() without CORS
+
 async function fetchRequestWithoutCors() {
   const remoteUrl = document.querySelector("#remoteUrl").value;
   const options = {
@@ -98,7 +100,7 @@ async function fetchRequestWithoutCors() {
 
   try {
     const req = await fetch(remoteUrl, options);
-    
+
     client.invoke('notify', 'Success! See console for your data.', 'notice');
     console.log(req);
   } catch (err) {
