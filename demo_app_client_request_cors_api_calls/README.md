@@ -2,7 +2,14 @@
 
 This app is a companion to the knowledge base article that describes the ZAF client.request method and its CORS option.
 
-It demonstrates the three primary ways that client.request can be used. It also compares a client.request call to an AJAX call.
+It demonstrates the following:
+
+- Using client.request to a Zendesk API
+- Using client.request to an external API with CORS
+- Using client.request to an external API without CORS
+- Compares a client.request call to a fetch() call with and without CORS
+
+Additionally, this also showcases the notify method for ZAF, which allows you to display a notification in the upper right corner of the agent interface.
 
 When running, bring up your browser's Console tab and Network tab to monitor the different behaviors.
 
@@ -41,6 +48,8 @@ Follow these steps to get a local copy up and running.
 - [How ZAF client.request works](https://developer.zendesk.com/documentation/apps/getting-started/how-apps-framework-client-request-works/)
 - [Zendesk Apps Guide](https://developer.zendesk.com/documentation/apps/)
 - [Apps Support API documentation](https://developer.zendesk.com/api-reference/apps/apps-support-api/introduction/)
+- [MDN web docs for the Fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API)
+- [ZAF notify method](https://developer.zendesk.com/api-reference/apps/apps-support-api/all_locations/#notify)
 
 <!-- Issue reporting with link to repo issues page -->
 
