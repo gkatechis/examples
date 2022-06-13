@@ -1,12 +1,13 @@
 {
   "name": "Test Network Request Behavior",
   "author": {
-    "name": "Bryan Flynn",
-    "email": "bflynn@zendesk.com",
-    "url": ""
+    "name": "Developer Advocacy at Zendesk",
+    "email": "developer-support@zendesk.com",
+    "url": "https://developer.zendesk.com/documentation/"
   },
   "defaultLocale": "en",
   "private": true,
+  "flexible": true,
   "location": {
     "support": {
       "ticket_sidebar": "assets/iframe.html"
